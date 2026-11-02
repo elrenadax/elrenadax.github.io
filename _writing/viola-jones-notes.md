@@ -3,6 +3,7 @@ title: Viola-Jones notes
 date: 2024-11-20
 description: "haar features + integral image + adaboost + cascade: real-time face detection before deep learning made it easy"
 tags: [cv, study-notes, paper]
+permalink: /i/viola-jones-notes/
 ---
 
 [Viola & Jones, CVPR 2001](https://www.cs.cmu.edu/~efros/courses/LBMV07/Papers/viola-cvpr-01.pdf) (+ the [IJCV 2004 journal version](https://www.sciencedirect.com/science/article/pii/S1077314203001759)): painfully slow to train, real-time to run. before deep neural nets, this was *the* face detector, and its three tricks - integral images, boosting, cascades - are still worth knowing cold.

@@ -3,6 +3,7 @@ title: ORM & PRM Validation-Split Runs
 date: 2026-08-13
 description: validating the ORM and PRM training scripts
 tags: [study-notes, rlhf]
+permalink: /i/orm-prm-validation/
 ---
 
 
@@ -26,14 +27,14 @@ uv run python -m reward_models.train_prm --config reward_models/configs/prm.yaml
 
 ## Configs (defaults, unchanged from `main`)
 
-### ORM [`reward_models/configs/orm.yaml`](https://github.com/elrensmin/rlhf-book/blob/feat/orm-val/code/reward_models/configs/orm.yaml)
+### ORM [`reward_models/configs/orm.yaml`](https://github.com/elrenadax/rlhf-book/blob/feat/orm-val/code/reward_models/configs/orm.yaml)
 
 - Model: `Qwen/Qwen3-0.6B-Base`, full FT, 596.05M trainable
 - Dataset: `openai/gsm8k`, train split, `samples: 2000` → 3600 train / 400 validation
 - Training: `lr 5.0e-5`, `warmup_ratio 0.1`, `warmup_only`, `epochs 3`,`batch_size 2`, `grad_accum_steps 16`, `seed 7`, 
  `val_ratio 0.1`, `eval_interval 25`
 
-### PRM [`reward_models/configs/prm.yaml`](https://github.com/elrensmin/rlhf-book/blob/feat/orm-val/code/reward_models/configs/prm.yaml)
+### PRM [`reward_models/configs/prm.yaml`](https://github.com/elrenadax/rlhf-book/blob/feat/orm-val/code/reward_models/configs/prm.yaml)
 
 - Model: `Qwen/Qwen3-0.6B-Base`, full FT, 596.05M trainable
 - Dataset: `tasksource/PRM800K`, train split, `samples: 2000` (raw problems, capped before step-chunking) → 3667 train / 368 validation
@@ -75,9 +76,9 @@ I'm not able to make my wandb logs public.. will fix this and upload from next t
 
 ## breadcrumbs
 
-- [reward models](/o/reward-models/) - the ORM/PRM concepts this run validates, label shapes included
-- [ppo phase 1 experiments](/o/PPO-phase1/) - the training-log side of the same rlhf arc
-- [rl notes](/o/RL-notes/) - the policy-gradient machinery behind RLHF training runs
+- [reward models](/i/reward-models/) - the ORM/PRM concepts this run validates, label shapes included
+- [ppo phase 1 experiments](/i/PPO-phase1/) - the training-log side of the same rlhf arc
+- [rl notes](/i/RL-notes/) - the policy-gradient machinery behind RLHF training runs
 
 ## todos
 

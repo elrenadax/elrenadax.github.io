@@ -3,9 +3,10 @@ title: Hungry Hungry Hippos (H3) notes
 date: 2024-12-13
 description: "two fixed SSMs (shift + diag) wired into an attention-like layer, built to do associative recall"
 tags: [ssm, study-notes, paper]
+permalink: /i/h3-notes/
 ---
 
-[Hungry Hungry Hippos](https://arxiv.org/abs/2212.14052) (dao, fu, saab, arora, rudra, ré) is the SSM-family paper that *stops* treating the SSM as one blob and instead rebuilds attention's function out of two specialized SSMs - explicitly because time-invariant SSMs fail at language modeling's nastiest requirement, **associative recall** (my [S4 notes](/o/s4-notes/) and [Mamba notes](/o/mamba-notes/) touch this). so despite how the shorthand usually reads ("marks a departure from the ssm based model"), H3 is *in* the SSM family - what it departs from is the one-SSM-per-layer design. the implementation sketch below follows a multi-part annotated-SSM tutorial i worked from (the same series the code cells in the [S4 note](/o/s4-notes/) come from).
+[Hungry Hungry Hippos](https://arxiv.org/abs/2212.14052) (dao, fu, saab, arora, rudra, ré) is the SSM-family paper that *stops* treating the SSM as one blob and instead rebuilds attention's function out of two specialized SSMs - explicitly because time-invariant SSMs fail at language modeling's nastiest requirement, **associative recall** (my [S4 notes](/i/s4-notes/) and [Mamba notes](/i/mamba-notes/) touch this). so despite how the shorthand usually reads ("marks a departure from the ssm based model"), H3 is *in* the SSM family - what it departs from is the one-SSM-per-layer design. the implementation sketch below follows a multi-part annotated-SSM tutorial i worked from (the same series the code cells in the [S4 note](/i/s4-notes/) come from).
 
 ## the two SSMs
 
@@ -54,7 +55,7 @@ nothing here learns, nothing decays - the state literally *holds the last $N$ in
 
 ### SSM-diag - the compressor
 
-$A$ initialized per the **S4D-Lin** recipe from my [S4 notes](/o/s4-notes/) ($A_n = -\tfrac12 + \pi i n$: decaying real part, linearly spaced oscillation frequencies):
+$A$ initialized per the **S4D-Lin** recipe from my [S4 notes](/i/s4-notes/) ($A_n = -\tfrac12 + \pi i n$: decaying real part, linearly spaced oscillation frequencies):
 
 ![s4d lin init](/images/h3-notes/pasted-image-20241213165401.png)
 
@@ -109,7 +110,7 @@ class H3Config:
     hidden_size: int    # D - embedding dim
 ```
 
-the generic `SSM` class backs both - the only difference from the [S4D block](/o/s4-notes/) is the initialization logic:
+the generic `SSM` class backs both - the only difference from the [S4D block](/i/s4-notes/) is the initialization logic:
 
 ```python
 class SSM(torch.nn.Module):
@@ -149,7 +150,7 @@ architecturally these models are transformer-like; the only real difference: a t
 
 ![h3 vs transformer block](/images/h3-notes/pasted-image-20241213171440.png)
 
-(time mixing = move information across positions; channel mixing = the MLP that computes within a position. the [Mamba notes](/o/mamba-notes/)' "communication vs computation" framing is this same split.)
+(time mixing = move information across positions; channel mixing = the MLP that computes within a position. the [Mamba notes](/i/mamba-notes/)' "communication vs computation" framing is this same split.)
 
 ## why two SSMs is the right decomposition (my reading of the paper's motivation)
 
@@ -158,7 +159,7 @@ associative recall needs two things at once, and attention provides both: an exa
 - **SSM-shift = the memory**: no decay, no mixing - a sliding queue of recent keys, exact.
 - **SSM-diag = the retrieval compute**: decayed superposition over the stored pairs, so a product/lookup structure can emerge over time, which the outer $q \odot (\cdot)$ then probes.
 
-that's why the layer looks like attention: it *emulates* $QK^\top$-then-$KV$ with recurrences instead of a materialized matrix. (and [Mamba](/o/mamba-notes/) later said: you don't need the shift half at all if you make *every* parameter selective - SSM-Shift is replaced by a plain 1D conv there.)
+that's why the layer looks like attention: it *emulates* $QK^\top$-then-$KV$ with recurrences instead of a materialized matrix. (and [Mamba](/i/mamba-notes/) later said: you don't need the shift half at all if you make *every* parameter selective - SSM-Shift is replaced by a plain 1D conv there.)
 
 ## papers
 
@@ -168,4 +169,4 @@ that's why the layer looks like attention: it *emulates* $QK^\top$-then-$KV$ wit
 
 - why exactly $-\tfrac12 + \pi i n$ on the diagonal: the S4D paper derives S4D-Lin as a diagonal approximation of HiPPO-LegS - re-derive that link instead of reciting it.
 - the paper's associative-recall experiments (induction heads, MQAR-style): pull one concrete result into this note - right now the motivation is all assertion.
-- pin down the tutorial source (it's the same annotated-SSM series the [S4](/o/s4-notes/) code cells came from) and credit it properly.
+- pin down the tutorial source (it's the same annotated-SSM series the [S4](/i/s4-notes/) code cells came from) and credit it properly.

@@ -3,9 +3,10 @@ title: FCN notes
 date: 2024-12-02
 description: "fully convolutional networks: decapitate the classifier, convert to convs, upsample, and fuse skips"
 tags: [segmentation, cnn, study-notes, paper]
+permalink: /i/fcn-notes/
 ---
 
-[Long, Shelhamer, Darrell 2015](https://arxiv.org/abs/1411.4038) (+ the [2016 journal version](https://arxiv.org/abs/1605.06211)): the paper that turned classification nets into segmentation machines. pairs naturally with my [U-Net notes](/o/unet-notes/) - U-Net is the idea taken one refinement further.
+[Long, Shelhamer, Darrell 2015](https://arxiv.org/abs/1411.4038) (+ the [2016 journal version](https://arxiv.org/abs/1605.06211)): the paper that turned classification nets into segmentation machines. pairs naturally with my [U-Net notes](/i/unet-notes/) - U-Net is the idea taken one refinement further.
 
 ## why not just a classifier?
 

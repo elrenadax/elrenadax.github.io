@@ -3,9 +3,10 @@ title: SSM notes
 date: 2024-12-04
 description: state space models - the recurrence, the discretization, and the convolution view
 tags: [ssm, study-notes]
+permalink: /i/ssm-notes/
 ---
 
-i kept hearing "SSMs are just RNNs with better press" so i sat down and worked the lineage from the top: transformers and their cost problem, the plain-vanilla state space model, what discretization really does, and the convolution view that makes the whole thing trainable. most of the walkthrough below leans on Maarten Grootendorst's [visual guide](https://maartengrootendorst.substack.com/p/a-visual-guide-to-mamba-and-state), The Gradient's [Mamba explained](https://thegradient.pub/mamba-explained/), and Sasha Rush's [annotated S4](https://srush.github.io/annotated-s4/), with control-theory stuff from [tinkerd](https://tinkerd.net/blog/machine-learning/state-space-models/) and [libretexts](https://math.libretexts.org/Bookshelves/Linear_Algebra/Matrix_Analysis_(Cox)/05%3A_Matrix_Methods_for_Dynamical_Systems/5.02%3A_The_Laplace_Transform) sprinkled in. the deeper parts live in their own notes: [HiPPO](/o/hippo-notes/), [S4](/o/s4-notes/), [Mamba](/o/mamba-notes/).
+i kept hearing "SSMs are just RNNs with better press" so i sat down and worked the lineage from the top: transformers and their cost problem, the plain-vanilla state space model, what discretization really does, and the convolution view that makes the whole thing trainable. most of the walkthrough below leans on Maarten Grootendorst's [visual guide](https://maartengrootendorst.substack.com/p/a-visual-guide-to-mamba-and-state), The Gradient's [Mamba explained](https://thegradient.pub/mamba-explained/), and Sasha Rush's [annotated S4](https://srush.github.io/annotated-s4/), with control-theory stuff from [tinkerd](https://tinkerd.net/blog/machine-learning/state-space-models/) and [libretexts](https://math.libretexts.org/Bookshelves/Linear_Algebra/Matrix_Analysis_(Cox)/05%3A_Matrix_Methods_for_Dynamical_Systems/5.02%3A_The_Laplace_Transform) sprinkled in. the deeper parts live in their own notes: [HiPPO](/i/hippo-notes/), [S4](/i/s4-notes/), [Mamba](/i/mamba-notes/).
 
 ## the tradeoff that starts everything
 
@@ -135,14 +136,14 @@ train conv, infer recurrent. (the kernel is fixed across inputs though - which i
 
 everything above shares one property: **LTI, linear time invariance**. $\bar{A}$, $\bar{B}$, $\bar{C}$ are the same for every timestep. the model treats the first token and the ten-thousandth token with identical machinery, regardless of what's in them. a static representation that isn't content-aware.
 
-no bueno. [Mamba](/o/mamba-notes/) fixes this, and everything in between is this lineage:
+no bueno. [Mamba](/i/mamba-notes/) fixes this, and everything in between is this lineage:
 
-- [HiPPO](/o/hippo-notes/) - the structure of $A$ is what decides which parts of the previous state survive. HiPPO is the recipe for that structure: a principled way to compress the entire input history into the state. the structure of $A$ becomes the memory of the model itself.
+- [HiPPO](/i/hippo-notes/) - the structure of $A$ is what decides which parts of the previous state survive. HiPPO is the recipe for that structure: a principled way to compress the entire input history into the state. the structure of $A$ becomes the memory of the model itself.
 - LSSL - one layer, three interchangeable views (recurrent / conv / continuous-time), and the realization that naive $A$ is impossible to learn without structure.
-- [S4](/o/s4-notes/) - LTI + structured (HiPPO) + diagonalized $A$ with clever kernels.
+- [S4](/i/s4-notes/) - LTI + structured (HiPPO) + diagonalized $A$ with clever kernels.
 - H3 - SSM machinery wired specifically to do associative recall.
-- [Mamba](/o/mamba-notes/) - make $B$, $C$ and $\Delta$ input-dependent. selectivity. no more LTI.
-- [MLLA](/o/mlla-notes/) - and then you realize Mamba was linear attention wearing a control-theory costume.
+- [Mamba](/i/mamba-notes/) - make $B$, $C$ and $\Delta$ input-dependent. selectivity. no more LTI.
+- [MLLA](/i/mlla-notes/) - and then you realize Mamba was linear attention wearing a control-theory costume.
 
 ## papers i'm chipping through
 
@@ -160,8 +161,8 @@ useful videos: [state space coordinates](https://www.youtube.com/watch?v=-yDxwII
 
 ## todos
 
-- connect this linear-Gaussian SSM to my [Kalman filter notes](/o/kalman-notes/) properly: predict = Chapman-Kolmogorov, update = Bayes, and neither note closes the loop yet - this whole lineage literally descends from the filter.
+- connect this linear-Gaussian SSM to my [Kalman filter notes](/i/kalman-notes/) properly: predict = Chapman-Kolmogorov, update = Bayes, and neither note closes the loop yet - this whole lineage literally descends from the filter.
 - study ODEs + Laplace transform (the control playlist above) before re-deriving the HiPPO ODE - right now i'm trusting the result instead of the derivation.
 - the "plug-in state cartridges" idea from The Gradient: train a *state* once (pure compression, no gradients) and load it at inference for zero-compute in-context learning. worth chasing: has anyone actually built this?
 - learned discretization *functions* (not just learned $\Delta$) - does anyone have a paper on this?
-- revisit the LSSL "convolutions forward" gap the early draft never filled - covered by the kernel math above now, but walk it again inside the [S4 note](/o/s4-notes/).
+- revisit the LSSL "convolutions forward" gap the early draft never filled - covered by the kernel math above now, but walk it again inside the [S4 note](/i/s4-notes/).

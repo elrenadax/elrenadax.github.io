@@ -15,9 +15,9 @@
 
       <div id="site-menu" class="site-menu">
         <nav class="site-nav" aria-label="Main">
-          <a href="{{ '/i/' | relative_url }}" aria-label="input: reads" title="input - reads"{% if page.url contains '/i/' %} aria-current="page"{% endif %}>I</a>
+          <a href="{{ '/i/' | relative_url }}" aria-label="input" title="input"{% if page.url contains '/i/' %} aria-current="page"{% endif %}>I</a>
           <span class="nav-sep" aria-hidden="true">/</span>
-          <a href="{{ '/o/' | relative_url }}" aria-label="output: writes" title="output - writes"{% if page.url contains '/o/' %} aria-current="page"{% endif %}>O</a>
+          <a href="{{ '/o/' | relative_url }}" aria-label="output" title="output"{% if page.url contains '/o/' %} aria-current="page"{% endif %}>O</a>
         </nav>
 
         <div class="site-actions">
@@ -28,12 +28,6 @@
           {% if site.github_username %}
           <a class="icon-link icon-invert" href="https://github.com/{{ site.github_username }}" aria-label="GitHub" target="_blank" rel="noopener">
             <img src="{{ '/images/icons/github.webp' | relative_url }}" alt="" width="20" height="20" loading="lazy" decoding="async">
-          </a>
-          {% endif %}
-
-          {% if site.twitter_username %}
-          <a class="icon-link icon-invert" href="https://x.com/{{ site.twitter_username }}" aria-label="X" target="_blank" rel="noopener">
-            <img src="{{ '/images/icons/twitter.webp' | relative_url }}" alt="" width="20" height="20" loading="lazy" decoding="async">
           </a>
           {% endif %}
 

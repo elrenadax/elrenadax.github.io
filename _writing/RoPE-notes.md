@@ -3,6 +3,7 @@ title: RoPE notes
 date: 2026-08-28
 description: how rotary position embeddings work
 tags: [RoPE, study-notes]
+permalink: /i/RoPE-notes/
 ---
 
 I owe a debt of gratitude to this dude for making [RoPE click for me](https://www.youtube.com/watch?v=hCzJo4ui1P8)
@@ -109,7 +110,7 @@ all elementwise muls against the precomputed $\cos$ and $\sin$ tensors. no matmu
 
 ## breadcrumbs
 
-- [bert notes](/o/bert-notes/) - the positional-embedding contrast (learned absolute vs this rotational scheme)
+- [bert notes](/i/bert-notes/) - the positional-embedding contrast (learned absolute vs this rotational scheme)
 - [adamw kernel exercise](/o/adamw/) - same fast-kernel arc
 - [softmax part 1](/o/softmax-1/) - elementwise-coalescing craft that this note's fast path leans on
 

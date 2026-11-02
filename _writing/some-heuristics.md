@@ -3,6 +3,7 @@ title: some heuristics
 date: 2026-08-31
 description: experimental heuristics for LM training
 tags: [study-notes]
+permalink: /i/some-heuristics/
 ---
 
 ## [Main-8b-retro](https://marin.readthedocs.io/en/latest/reports/marin-8b-retro/)
@@ -50,7 +51,7 @@ evidently Feistel gives a better data mix and more stable training. 🤷
 
 ## breadcrumbs
 
-- [ml-basics notes](/o/ml-basics-notes/) - the foundations these heuristics are shortcuts over
+- [ml-basics notes](/i/ml-basics-notes/) - the foundations these heuristics are shortcuts over
 - [ragged kernels on tpu](/o/pallas-ragged-kernels/) - the scaling-law-adjacent engineering side of the same training stack
 
 ## todos

@@ -608,7 +608,7 @@ a lot of extra jibber jabber but these are worklogs and my stream of consciousne
 
 - [softmax part 1](/o/softmax-1/) - part one, with the naive baseline and coalescing
 - [adamw kernel exercise](/o/adamw/) - the optimizer-kernel sibling
-- [rope notes](/o/RoPE-notes/) - the other elementwise-only kernel trick
+- [rope notes](/i/RoPE-notes/) - the other elementwise-only kernel trick
 
 ## todos
 

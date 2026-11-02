@@ -1,33 +1,20 @@
 ---
 layout: page
-title: Writes
+title: Outputs
 permalink: /o/
 hide_title: true
 ---
 
 <div class="writes-bar">
-  <input type="search" id="writes-search" class="search-box" placeholder="search titles..." aria-label="Search writing">
+  <input type="search" id="writes-search" class="search-box" placeholder="search titles..." aria-label="Search outputs">
 </div>
 
 <div class="tabs" role="tablist">
   <button class="tab active" type="button" data-tab="blog" role="tab" aria-selected="true">blog</button>
-  <button class="tab" type="button" data-tab="study-notes" role="tab" aria-selected="false">study-notes</button>
 </div>
 
 <div id="writes-list">
-  {% assign notes = site.writing | where_exp: "p", "p.tags contains 'study-notes'" | sort: "date" | reverse %}
   {% assign posts = site.writing | where_exp: "p", "p.tags contains 'blog'" | sort: "date" | reverse %}
-
-  <div id="tab-study-notes" class="tab-panel" hidden>
-    <ul class="w-list">
-      {% for post in notes %}
-      <li class="w-item" data-s="{{ post.title | escape }} {{ post.tags | join: ' ' | escape }}">
-        <time class="w-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %d, %Y" }}</time>
-        <a class="w-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
-      </li>
-      {% endfor %}
-    </ul>
-  </div>
 
   <div id="tab-blog" class="tab-panel">
     <ul class="w-list">

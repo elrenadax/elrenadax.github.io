@@ -3,9 +3,10 @@ title: Bahdanau attention notes
 date: 2024-12-04
 description: "neural machine translation by jointly learning to align and translate: where attention starts"
 tags: [nlp, attention, study-notes, paper]
+permalink: /i/bahdanau-attention-notes/
 ---
 
-[Bahdanau, Cho, Bengio 2014](https://arxiv.org/abs/1409.0473): the paper that introduced the alignment mechanism everyone now just calls *attention*. four years before transformers, and the direct ancestor of everything in my [BERT notes](/o/bert-notes/).
+[Bahdanau, Cho, Bengio 2014](https://arxiv.org/abs/1409.0473): the paper that introduced the alignment mechanism everyone now just calls *attention*. four years before transformers, and the direct ancestor of everything in my [BERT notes](/i/bert-notes/).
 
 ## the bottleneck
 

@@ -3,6 +3,7 @@ title: geohash notes
 date: 2024-11-20
 description: "binary bisect of the globe, interleaved bits, base32: how geohash turns a lat/lon into a proximity-searchable string"
 tags: [algorithms, gis, study-notes]
+permalink: /i/geohash-notes/
 ---
 
 a **geohash** identifies a rectangular area around a fixed point, and the *length* of the hash sets the precision. long shared prefix ⇒ spatially close; chop characters off the end ⇒ gradually coarser cell. that asymmetry is the whole design: prefix similarity is a *sufficient* signal for proximity, never a guarantee - two points on opposite sides of a cell boundary (or the 180° meridian, or a pole) can be 10 m apart with wildly different codes.

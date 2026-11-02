@@ -3,9 +3,10 @@ title: S4 notes
 date: 2024-12-11
 description: structured state spaces - diagonalize the HiPPO matrix, keep the memory, fix the kernel
 tags: [ssm, study-notes, paper]
+permalink: /i/s4-notes/
 ---
 
-S4 in one line: **SSM + optimized HiPPO + structured matrices**. this note walks from the [LSSL](https://arxiv.org/abs/2110.13985) lead-in, through the diagonalization story, to the [S4](https://arxiv.org/abs/2111.00396) kernel trick and the simplifications that came after (S4D init, LRU). builds directly on [SSM notes](/o/ssm-notes/) and [HiPPO notes](/o/hippo-notes/) - keep the `hippo_matrix()` cell from the latter in reach, it gets reused here. main sources: [annotated S4](https://srush.github.io/annotated-s4/), Albert Gu's [Stanford talk](https://www.youtube.com/watch?v=luCBXCErkCs) and [interview](https://www.youtube.com/watch?v=yceNl9C6Ir0), the [visual guide](https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-mamba-and-state).
+S4 in one line: **SSM + optimized HiPPO + structured matrices**. this note walks from the [LSSL](https://arxiv.org/abs/2110.13985) lead-in, through the diagonalization story, to the [S4](https://arxiv.org/abs/2111.00396) kernel trick and the simplifications that came after (S4D init, LRU). builds directly on [SSM notes](/i/ssm-notes/) and [HiPPO notes](/i/hippo-notes/) - keep the `hippo_matrix()` cell from the latter in reach, it gets reused here. main sources: [annotated S4](https://srush.github.io/annotated-s4/), Albert Gu's [Stanford talk](https://www.youtube.com/watch?v=luCBXCErkCs) and [interview](https://www.youtube.com/watch?v=yceNl9C6Ir0), the [visual guide](https://newsletter.maartengrootendorst.com/p/a-visual-guide-to-mamba-and-state).
 
 ## before S4: LSSL, one layer with three hats
 
@@ -19,11 +20,11 @@ the one layer, seen from three angles:
 - **convolutional**: LTI systems are explicitly representable as a continuous convolution, and the discrete version trains in parallel as a convolution.
 - **continuous-time**: the layer *is* a differential equation, so it does continuous-time tricks - simulate continuous processes, handle missing data, adapt to timescales.
 
-generality has a price, and the paper names both: (i) naive LSSLs inherit the long-dependency limits of both RNNs *and* CNNs, and (ii) the state matrix $A$ and timescale $\Delta t$ are critical to performance, yet learning them is computationally infeasible. the fix is the part that matters: specialize $A$ to a class of **structured matrices** that generalize the continuous-time memory theory - i.e. [HiPPO](/o/hippo-notes/) - and give algorithms that make *learning* such an $A$ tractable.
+generality has a price, and the paper names both: (i) naive LSSLs inherit the long-dependency limits of both RNNs *and* CNNs, and (ii) the state matrix $A$ and timescale $\Delta t$ are critical to performance, yet learning them is computationally infeasible. the fix is the part that matters: specialize $A$ to a class of **structured matrices** that generalize the continuous-time memory theory - i.e. [HiPPO](/i/hippo-notes/) - and give algorithms that make *learning* such an $A$ tractable.
 
 ## step 1 - make A diagonal, legally
 
-from [HiPPO](/o/hippo-notes/) we have a matrix that remembers everything, but it's dense - $O(N^2)$ matvecs. the search S4 runs: a matrix that's *diagonal*, yet still effective at preserving information across many timesteps. diagonal means $O(N)$ matvecs and a kernel you can compute cheaply.
+from [HiPPO](/i/hippo-notes/) we have a matrix that remembers everything, but it's dense - $O(N^2)$ matvecs. the search S4 runs: a matrix that's *diagonal*, yet still effective at preserving information across many timesteps. diagonal means $O(N)$ matvecs and a kernel you can compute cheaply.
 
 the legal move is a **similarity transform**.
 
@@ -110,7 +111,7 @@ initialize at `log(1/2)`, recover $A$ as $-\exp(\cdot) + i\,\text{imag}$. negati
 
 ## the convolution view, or: SSMs are CNNs with an infinite window
 
-the thing S4 actually speeds up is kernel $K$ = the convolution-form SSM from my [SSM notes](/o/ssm-notes/) ($y = \bar{K} * x$, $\bar{K}_j = C\bar{A}^j\bar{B}$).
+the thing S4 actually speeds up is kernel $K$ = the convolution-form SSM from my [SSM notes](/i/ssm-notes/) ($y = \bar{K} * x$, $\bar{K}_j = C\bar{A}^j\bar{B}$).
 
 an intuition that stuck with me: an **exponential moving average** is nothing but convolving the input with an exponentially decaying kernel. that's a *tiny* SSM: one channel, $\bar{A} = $ scalar decay. a CNN is the same shape but with a *finite* learned window; the SSM kernel decays forever. SSM = CNN with an infinitely long context window, run online as a recurrence at inference.
 
@@ -135,7 +136,7 @@ regime note: transformers are great for dense discrete data (language); S4 loves
 to be crisp about the boundary (this sentence is easy to read *backwards*: **Mamba's change is relative to S4** - it just removes linear time invariance):
 
 - S4/S4D: $\bar{A}, \bar{B}, \bar{C}$ fixed for every timestep. static. content-blind.
-- [Mamba](/o/mamba-notes/): $B, C, \Delta$ become *functions of the input* $x_t$. selectivity.
+- [Mamba](/i/mamba-notes/): $B, C, \Delta$ become *functions of the input* $x_t$. selectivity.
 
 ![lti to selective](/images/s4-notes/pasted-image-20241207173731.png)
 

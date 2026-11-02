@@ -3,6 +3,7 @@ title: word2vec notes
 date: 2025-03-22
 description: "skip-gram from first principles: the objective, the lookup-table trick, and how negative sampling + subsampling make it cheap"
 tags: [nlp, study-notes, paper]
+permalink: /i/word2vec-notes/
 ---
 
 the idea in one line: give every word a dense vector, chosen so that vectors of words appearing in *similar contexts* end up similar (the distributional hypothesis wearing math). mikolov et al's [papers](https://arxiv.org/abs/1301.3781) are the source; my walkthrough leans on [CS224n notes](https://web.stanford.edu/class/cs224n/), [Christophe Garon's negative-sampling explainer](https://christophegaron.com/articles/research/demystifying-mikolov-et-al-s-negative-sampling-word-embedding-method-understanding-word2vec/), and [Chris McCormick's tutorials](http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/).

@@ -3,9 +3,10 @@ title: Reinforcement Learning Notes
 date: 2026-08-20
 description: policy gradients, baselines, RLOO, PPO, GRPO
 tags: [RL, study-notes]
+permalink: /i/RL-notes/
 ---
 
-I've mostly just pasted my notes from reading [policy-gradients](https://rlhfbook.com/c/06-policy-gradients) here, plus some stitched-in intuition to tie the pieces together. the fundamentals half - MDP tuple, markov property, return $G_t$, $V$ and $Q$, advantage, Bellman - now lives in [RL fundamentals](/o/rl-fundamentals/), so this note picks up from the objective and runs the policy-gradient ladder.
+I've mostly just pasted my notes from reading [policy-gradients](https://rlhfbook.com/c/06-policy-gradients) here, plus some stitched-in intuition to tie the pieces together. the fundamentals half - MDP tuple, markov property, return $G_t$, $V$ and $Q$, advantage, Bellman - now lives in [RL fundamentals](/i/rl-fundamentals/), so this note picks up from the objective and runs the policy-gradient ladder.
 
 For an LLM the setup is almost embarrassingly simple. State = the token sequence so far. Action = next token. Transition = deterministic append, $s_{t+1} = [s_t, a_t]$, so all the randomness is in the policy, none in the environment. One prompt → one completion → one episode, dead at the EOS token. I mean there's complexity of batched stuff and the mult-turn convos but let's stay focused on the basics for now.
 
@@ -179,7 +180,7 @@ That's the final form. the inner term is just $R(s,a_k) - \bar{R}$, the standard
 
 ## Advantage and GAE (the derivation moved)
 
-the full derivation lives in [RL fundamentals](/o/rl-fundamentals/) now: the flat-credit-assignment problem (every token inherits the same terminal scalar), $A^\pi(s_t, a_t) = Q^\pi(s_t, a_t) - V^\pi(s_t)$, the Bellman squeeze down to the TD residual $A(s_t, a_t) = r_t + \gamma V(s_{t+1}) - V(s_t)$, and why $G_t \equiv R(\tau)$ with $\gamma = 1$ for completions.
+the full derivation lives in [RL fundamentals](/i/rl-fundamentals/) now: the flat-credit-assignment problem (every token inherits the same terminal scalar), $A^\pi(s_t, a_t) = Q^\pi(s_t, a_t) - V^\pi(s_t)$, the Bellman squeeze down to the TD residual $A(s_t, a_t) = r_t + \gamma V(s_{t+1}) - V(s_t)$, and why $G_t \equiv R(\tau)$ with $\gamma = 1$ for completions.
 
 what PPO actually estimates $\hat{A}_t$ with is GAE - exponentially weighted TD residuals, trading bias against variance:
 
@@ -351,10 +352,10 @@ resources:
 
 ## breadcrumbs
 
-- [rl-fundamentals](/o/rl-fundamentals/) - the fundamentals half (mdp, returns, values) this note builds on
-- [ppo phase 1 experiments](/o/PPO-phase1/) - PPO taken from equations to cartpole runs
-- [orm/prm validation runs](/o/orm-prm-validation/) - reward modeling, the input half of post-training
-- [reward models](/o/reward-models/) - the reward scalar these gradients lean on
+- [rl-fundamentals](/i/rl-fundamentals/) - the fundamentals half (mdp, returns, values) this note builds on
+- [ppo phase 1 experiments](/i/PPO-phase1/) - PPO taken from equations to cartpole runs
+- [orm/prm validation runs](/i/orm-prm-validation/) - reward modeling, the input half of post-training
+- [reward models](/i/reward-models/) - the reward scalar these gradients lean on
 
 ## todos
 

@@ -3,6 +3,7 @@ title: The matrix calculus you need for deep learning
 date: 2024-12-08
 description: "jacobians, gradients as rows, and the vector chain rule - my distillation of Parr & Howard's paper"
 tags: [math, study-notes, paper]
+permalink: /i/matrix-calculus-notes/
 ---
 
 my notes on [Parr & Howard, "The Matrix Calculus You Need For Deep Learning"](https://arxiv.org/abs/1802.01528) (july 2018). their point: deep learning is mostly *vector calculus* - functions $f: \mathbb{R}^n \to \mathbb{R}$ reduced to one scalar (the loss) - so the single-variable intuition has to be upgraded: one equation at a time becomes a matrix of derivatives.

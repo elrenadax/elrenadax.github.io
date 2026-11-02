@@ -8,7 +8,8 @@
       <div class="log-wrapper">
         <article class="log">
           <header class="log-header">
-            <a class="back-btn" href="{{ '/o/' | relative_url }}" aria-label="Back to the writes menu">&#8593; back</a>
+            {% assign crumb = page.url | remove_first: "/" | split: "/" | first %}
+            <a class="back-btn" href="{{ crumb | prepend: "/" | append: "/" | relative_url }}" aria-label="Back to the menu">&#8593; back</a>
             <h1 class="log-title">{{ page.title }}</h1>
             <div class="log-meta">
               <time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%b %d, %Y" }}</time>
