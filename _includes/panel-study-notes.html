@@ -1,0 +1,11 @@
+  <div id="tab-study-notes" class="tab-panel">
+  <ul class="w-list">
+    {% assign notes = site.writing | where_exp: "p", "p.tags contains 'study-notes'" | sort: "date" | reverse %}
+    {% for post in notes %}
+    <li class="w-item">
+      <time class="w-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %d, %Y" }}</time>
+      <a class="w-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+    </li>
+    {% endfor %}
+  </ul>
+  </div>

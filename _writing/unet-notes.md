@@ -3,10 +3,10 @@ title: U-Net notes
 date: 2024-12-02
 description: "encoder-decoder with dense skip concatenation: the biomedical segmentation classic, and what it borrows from FCN"
 tags: [segmentation, cnn, study-notes, paper]
-permalink: /i/unet-notes/
+permalink: /input/unet-notes/
 ---
 
-[Ronneberger, Fischer, Brox 2015](https://arxiv.org/abs/1505.04597): the encoder-decoder with dense skip connections that became the default biomedical segmentation backbone (and the skeleton under [SegMamba's](/i/segmamba-notes/) modern descendants). read alongside my [FCN notes](/i/fcn-notes/) - U-Net is FCN's skip idea, tightened.
+[Ronneberger, Fischer, Brox 2015](https://arxiv.org/abs/1505.04597): the encoder-decoder with dense skip connections that became the default biomedical segmentation backbone (and the skeleton under [SegMamba's](/input/segmamba-notes/) modern descendants). read alongside my [FCN notes](/input/fcn-notes/) - U-Net is FCN's skip idea, tightened.
 
 ## fcn vs u-net, stated carefully
 
@@ -47,7 +47,7 @@ one quirk to sit with: the paper never justifies the unpadded design beyond the 
 
 ![dice loss vs cross entropy](/images/unet-notes/pasted-image-20241203102206.png)
 
-- the original **elastic deformation** augmentation (random elastic warps of the images) was the paper's headline data trick for learning deformation invariance cheaply - worth a line in every U-Net retelling, and skipped as often as not (the [SegMamba](/i/segmamba-notes/) recipe still uses it, 9 years later).
+- the original **elastic deformation** augmentation (random elastic warps of the images) was the paper's headline data trick for learning deformation invariance cheaply - worth a line in every U-Net retelling, and skipped as often as not (the [SegMamba](/input/segmamba-notes/) recipe still uses it, 9 years later).
 - **pixel shuffle** as an alternative upsampler (borrowed from super-resolution nets like SRGAN): conv from $C \times H \times W$ to $(Cr^2) \times H \times W$, then reshape pixel-wise ("mosaic fashion") to $C \times Hr \times Wr$ - learned upsampling without transposed convs.
 - reference implementation: [Pytorch-UNet](https://github.com/milesial/Pytorch-UNet).
 

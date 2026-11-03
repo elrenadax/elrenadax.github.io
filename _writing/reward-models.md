@@ -3,7 +3,7 @@ title: Reward Models
 date: 2026-08-16
 description: reward models for RLHF
 tags: [rl, study-notes]
-permalink: /i/reward-models/
+permalink: /input/reward-models/
 ---
 
 These are my notes for ch. 5 of the [RLHF book](https://rlhfbook.com/c/05-reward-models). This is the part I actually need to keep in my head: the intuition, the datasets, and where it lives in the `open-instruct` repo and TRL.
@@ -303,9 +303,9 @@ anyway. i still don't fully trust myself on the ORM vs value distinction, and i'
 
 ## breadcrumbs
 
-- [orm/prm validation runs](/i/orm-prm-validation/) - these concepts, run on gsm8k and prm800k
-- [rl-fundamentals](/i/rl-fundamentals/) - the proxy-vs-intent gap (reward overoptimization) enters here
-- [rl notes](/i/RL-notes/) - what happens downstream once a reward scalar exists
+- [orm/prm validation runs](/input/orm-prm-validation/) - these concepts, run on gsm8k and prm800k
+- [rl-fundamentals](/input/rl-fundamentals/) - the proxy-vs-intent gap (reward overoptimization) enters here
+- [rl notes](/input/RL-notes/) - what happens downstream once a reward scalar exists
 
 ## todos
 

@@ -3,7 +3,7 @@ title: KL divergence notes
 date: 2026-08-12
 description: entropy, KL divergence, and mutual information
 tags: [ML, info-theory, study-notes]
-permalink: /i/kl-divergence-notes/
+permalink: /input/kl-divergence-notes/
 ---
 
 i kept running into KL divergence and cross-entropy in like four different places at once and i could never give a straight answer when someone asked what KL actually *was*. embarrassing honestly. so i saved a pile of pages, sat with it for an evening, and these are the notes i want to come back to.
@@ -138,9 +138,9 @@ that's the spine. surprisal is the atom. everything else is either an average of
 
 ## breadcrumbs
 
-- [ddpm eq-by-equation (2006.11239)](/i/2006-11239/) - the KL gap in the ELBO bound is this note, applied
-- [diffusion-notes](/i/diffusion-notes/) - family map of where that bound sits
-- [ml-basics notes](/i/ml-basics-notes/) - the sibling basics note
+- [ddpm eq-by-equation (2006.11239)](/input/2006-11239/) - the KL gap in the ELBO bound is this note, applied
+- [diffusion-notes](/input/diffusion-notes/) - family map of where that bound sits
+- [ml-basics notes](/input/ml-basics-notes/) - the sibling basics note
 
 ## todos
 

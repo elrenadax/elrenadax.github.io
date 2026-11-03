@@ -3,7 +3,7 @@ title: ML basics notes
 date: 2026-08-07
 description: ml fundamentals for later recall
 tags: [ML, study-notes]
-permalink: /i/ml-basics-notes/
+permalink: /input/ml-basics-notes/
 ---
 
 [silvia's blog](https://silviasapora.github.io/blog/ml-interviews) suggests a bunch of basics that I don't know, or if I know them, I'm a little patchy, so I figured I'll make some notes here while I'm revising things so I have somehting to reference back later.
@@ -29,9 +29,9 @@ source:
 
 ## breadcrumbs
 
-- [rl-fundamentals](/i/rl-fundamentals/) - the RL half of the basics
-- [kl divergence notes](/i/kl-divergence-notes/) - the info-theory half
-- [matrix calculus you need for deep learning](/i/matrix-calculus-notes/) - the math plumbing for everything above
+- [rl-fundamentals](/input/rl-fundamentals/) - the RL half of the basics
+- [kl divergence notes](/input/kl-divergence-notes/) - the info-theory half
+- [matrix calculus you need for deep learning](/input/matrix-calculus-notes/) - the math plumbing for everything above
 
 ## todos
 

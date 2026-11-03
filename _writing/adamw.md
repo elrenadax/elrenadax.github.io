@@ -371,9 +371,9 @@ develop a better sense of optimizing kernels first, and then return to this. mak
 
 ## breadcrumbs
 
-- [softmax part 1](/o/softmax-1/) and [part 2](/o/softmax-2/) - the same kernel-optimization arc on the softmax side
-- [ragged kernels on tpu](/o/pallas-ragged-kernels/) - the same arc on different hardware, different constraints
-- [ml-basics notes](/i/ml-basics-notes/) - where the optimizer sits in the basics stack
+- [softmax part 1](/output/softmax-1/) and [part 2](/output/softmax-2/) - the same kernel-optimization arc on the softmax side
+- [ragged kernels on tpu](/output/pallas-ragged-kernels/) - the same arc on different hardware, different constraints
+- [ml-basics notes](/input/ml-basics-notes/) - where the optimizer sits in the basics stack
 
 ## todos
 

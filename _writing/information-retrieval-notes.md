@@ -3,7 +3,7 @@ title: Information Retrieval notes
 date: 2025-11-14
 description: "inverted index, tf-idf, and how BM25 fixes term saturation and document length"
 tags: [information-retrieval, nlp, study-notes]
-permalink: /i/information-retrieval-notes/
+permalink: /input/information-retrieval-notes/
 ---
 
 built from my own [information-retrieval](https://github.com/kuutsav/information-retrieval) readme, plus the [kmwllc BM25 walkthrough](https://kmwllc.com/index.php/2020/03/20/understanding-tf-idf-and-bm-25/).
@@ -33,7 +33,7 @@ building it runs every document (and later, every query) through the same pipeli
 
 ![search workflow](/images/information-retrieval-notes/pasted-image-20241127105629.png)
 
-the honest limitation to carry: *a document can be relevant without containing the exact query terms.* classic IR can't see past symbol identity - which is exactly the gap [BERT-style semantic search](/i/bert-notes/) later attacked.
+the honest limitation to carry: *a document can be relevant without containing the exact query terms.* classic IR can't see past symbol identity - which is exactly the gap [BERT-style semantic search](/input/bert-notes/) later attacked.
 
 ## scoring models, and their shared blindness
 
@@ -95,7 +95,7 @@ word2vec iterates over a corpus with a sliding window: at each step take a cente
 
 ![word2vec training](/images/information-retrieval-notes/pasted-image-20241127114143.png)
 
-full notes live in [my word2vec note](/i/word2vec-notes/) - what matters for IR are the *drawbacks*, because they explain why BERT-class models took over retrieval:
+full notes live in [my word2vec note](/input/word2vec-notes/) - what matters for IR are the *drawbacks*, because they explain why BERT-class models took over retrieval:
 
 - bag-of-words at heart: word order within the window is invisible
 - small window ⇒ only very local context shapes a vector

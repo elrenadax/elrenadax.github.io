@@ -6,6 +6,7 @@ baseurl: ""
 url: "https://elrenadax.github.io"
 github_username: elrenadax
 kaggle_username: elrensmin
+youtube_username: elrenadax
 markdown: kramdown
 plugins:
   - jekyll-feed
@@ -14,7 +15,7 @@ plugins:
 collections:
   writing:
     output: true
-    permalink: /o/:title/
+    permalink: /output/:title/
 
 defaults:
   - scope:

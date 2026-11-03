@@ -97,14 +97,14 @@
     padding: 0 1rem;
   }
   .site-header-inner {
-    grid-template-columns: 1fr auto;
+    grid-template-columns: 1fr auto auto;
     row-gap: 0.6rem;
   }
   .site-brand {
     grid-column: 1;
   }
   .menu-toggle {
-    grid-column: 2;
+    grid-column: 3;
     justify-self: end;
     display: inline-flex;
     align-items: center;
@@ -138,10 +138,9 @@
     display: flex;
   }
   .site-nav {
-    grid-column: auto;
+    grid-column: 2;
     flex-direction: row;
     align-items: center;
-    justify-content: center;
     gap: 0.7rem;
   }
   .site-nav a {
@@ -353,6 +352,49 @@
 
 
 /* Reading page */
+/* Higher specificity than `.reading-section h2` (0,1,1), which would
+   otherwise win and glue the list to the heading. */
+.reading-section h2.rating-head {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  font-size: 1.15rem;
+  text-transform: none;
+  letter-spacing: 0.02em;
+  color: var(--text-strong);
+  border-top: 1px solid var(--border);
+  /* ~2 body lines above each rating group (zoomed rem scale) */
+  margin: 4.6rem 0 1.5rem;
+  padding-top: 1.9rem;
+}
+.reading-section h2.rating-head:first-of-type {
+  margin-top: 2.2rem;
+}
+.stars {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.22rem;
+}
+.rating-star {
+  width: 1.25rem;
+  height: 1.25rem;
+  flex: 0 0 auto;
+}
+.rating-star.dim {
+  opacity: 0.9;
+}
+.rating-val {
+  font-size: 0.95rem;
+  font-weight: 400;
+  color: var(--muted);
+}
+/* breathing room under each list */
+.reading-section .reading-list {
+  margin-bottom: 0;
+}
+.reading-section .reading-list .book {
+  padding: 0.28rem 0 0.28rem 1.2rem;
+}
 .reading-section {
   margin-top: 1.5rem;
 }
@@ -375,7 +417,7 @@
   padding-bottom: 0.5rem;
   margin-bottom: 0.75rem;
 }
-.reading-section:first-of-type h2,
+.reading-section:first-of-type h2:not(.rating-head),
 .reading-section:first-of-type h3 {
   border-top: none;
   padding-top: 0;
@@ -397,7 +439,7 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+  gap: 0.55rem;
 }
 .book-link {
   font-size: 0.95rem;

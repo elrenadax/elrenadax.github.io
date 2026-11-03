@@ -3,10 +3,10 @@ title: Bahdanau attention notes
 date: 2024-12-04
 description: "neural machine translation by jointly learning to align and translate: where attention starts"
 tags: [nlp, attention, study-notes, paper]
-permalink: /i/bahdanau-attention-notes/
+permalink: /input/bahdanau-attention-notes/
 ---
 
-[Bahdanau, Cho, Bengio 2014](https://arxiv.org/abs/1409.0473): the paper that introduced the alignment mechanism everyone now just calls *attention*. four years before transformers, and the direct ancestor of everything in my [BERT notes](/i/bert-notes/).
+[Bahdanau, Cho, Bengio 2014](https://arxiv.org/abs/1409.0473): the paper that introduced the alignment mechanism everyone now just calls *attention*. four years before transformers, and the direct ancestor of everything in my [BERT notes](/input/bert-notes/).
 
 ## the bottleneck
 
@@ -36,7 +36,7 @@ the context is a weighted average over the encoder's annotations:
 
 $$c_i = \sum_{j=1}^{T_x} \alpha_{ij}\, h_j \qquad \alpha_{ij} = \frac{\exp(e_{ij})}{\sum_{k=1}^{T_x}\exp(e_{ik})} \qquad e_{ij} = a(s_{i-1}, h_j)$$
 
-- $\alpha_{ij}$ is a [softmax](/o/softmax-1/) over alignment scores - a probability distribution over source positions for target position $i$. (the weights multiply annotation $h_j$; my earlier notes wrote $h_{ij}$ once, which doesn't exist.)
+- $\alpha_{ij}$ is a [softmax](/output/softmax-1/) over alignment scores - a probability distribution over source positions for target position $i$. (the weights multiply annotation $h_j$; my earlier notes wrote $h_{ij}$ once, which doesn't exist.)
 - $e_{ij} = a(s_{i-1}, h_j)$ is the **alignment model**: a *learned* score for how well the inputs around position $j$ match the output at position $i$, jointly trained with everything else. the paper's parametrization is the additive form
 
 $$e_{ij} = v_a^\top \tanh\!\big( W_a s_{i-1} + U_a h_j \big)$$

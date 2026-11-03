@@ -3,7 +3,7 @@ title: Transformers notes
 date: 2024-12-04
 description: "from markov chains to multi-head attention: the mechanics walkthrough that made attention click, with the shapes spelled out"
 tags: [transformers, attention, study-notes, paper]
-permalink: /i/transformers-notes/
+permalink: /input/transformers-notes/
 ---
 
 the note where attention finally clicked for me, built bottom-up: language models on paper before any deep learning. the mechanics arc leans on [e2eml.school's transformers essay](https://e2eml.school/transformers.html), plus [Vaswani et al](https://arxiv.org/abs/1706.03762), the [annotated transformer](https://nlp.seas.harvard.edu/annotated-transformer/), and a [shapes-first pytorch walkthrough](https://hyugen-ai.medium.com/transformers-in-pytorch-from-scratch-for-nlp-beginners-ff3b3d922ef7) (behind cloudflare's bot gate, annoyingly).
@@ -77,7 +77,7 @@ the sequence of feature-creation matrix multiplication → ReLU nonlinearity →
 
 ![embeddings](/images/transformers-notes/pasted-image-20241205153952.png)
 
-- a good embedding groups similar meanings together, and a model learning in that space generalizes automatically across the neighborhood: whatever it learns about one word applies to the words right next to it, which cuts the training data needed. (this is the [word2vec](/i/word2vec-notes/) intuition, formalized into the model's own parameter space.)
+- a good embedding groups similar meanings together, and a model learning in that space generalizes automatically across the neighborhood: whatever it learns about one word applies to the words right next to it, which cuts the training data needed. (this is the [word2vec](/input/word2vec-notes/) intuition, formalized into the model's own parameter space.)
 - the trade: fewer embedded dimensions = fewer parameters = more information discarded. a language still needs room for its concepts to not step on each other. pick the embedding size to trade compute for accuracy.
 
 ## attention mechanism
@@ -122,7 +122,7 @@ the attention layer returns one vector z per word: "what this word means *contex
 
 ![shapes 3](/images/transformers-notes/pasted-image-20241206111900.png)
 
-(despite the "it's basically a cosine sim" shorthand i used to reach for: the scores are plain dot products of *learned projections*, no norm division of the two vectors, no cosine geometry - just scaled, softmaxed similarity the model trains to mean "attend here".) the [softmax](/o/softmax-1/) inside is the same function the kernel notes optimize.
+(despite the "it's basically a cosine sim" shorthand i used to reach for: the scores are plain dot products of *learned projections*, no norm division of the two vectors, no cosine geometry - just scaled, softmaxed similarity the model trains to mean "attend here".) the [softmax](/output/softmax-1/) inside is the same function the kernel notes optimize.
 
 ## multi-head attention
 
@@ -132,7 +132,7 @@ input matrix: stack one-hot row vectors → shape `n x N`.
 
 ![input matrix nxN](/images/transformers-notes/pasted-image-20241205154541.png)
 
-**why multiple heads?** the nice version of the argument: attention isn't binary 0/1 - softmax maps scores into `[0, 1]` and emphasizes the top value while squashing the rest (that's the whole [softmax trick](/o/softmax-1/). but the same mechanism *robs* us: a softmax-heavy attention tends to focus on a single element, and sometimes several preceding words should stay in mind together. the fix is **heads**: several attention instances run at once so the model considers several previous words simultaneously. the cost concern - head count multiplies the already-dominant attention compute - is answered by projecting into the lower-dim per-head space (shrunk matrices, cheap day saved).
+**why multiple heads?** the nice version of the argument: attention isn't binary 0/1 - softmax maps scores into `[0, 1]` and emphasizes the top value while squashing the rest (that's the whole [softmax trick](/output/softmax-1/). but the same mechanism *robs* us: a softmax-heavy attention tends to focus on a single element, and sometimes several preceding words should stay in mind together. the fix is **heads**: several attention instances run at once so the model considers several previous words simultaneously. the cost concern - head count multiplies the already-dominant attention compute - is answered by projecting into the lower-dim per-head space (shrunk matrices, cheap day saved).
 
 ![heads concat](/images/transformers-notes/pasted-image-20241205154945.png)
 
@@ -160,22 +160,22 @@ the encoder stack upgrade: sequence completion becomes translation. training nee
 
 ![channel time mixing](/images/transformers-notes/pasted-image-20241213063120.png)
 
-the input to each block is `(sequence_length, hidden_size)` - call them **time dimension** and **channel dimension**. every operation broadly falls into: mix along channels (1), mix along time (2), or both (3). self-attention is category 3 - the query projection mixes channels, the attention scores mix time - which abstracts a transformer block to **a time-mixing op followed by a channel-mixing op**. (this framing is exactly the hook [MLLA's linear-attention reform](/i/mlla-notes/) hangs its "attention is just a channel-mixer in disguise" argument on.)
+the input to each block is `(sequence_length, hidden_size)` - call them **time dimension** and **channel dimension**. every operation broadly falls into: mix along channels (1), mix along time (2), or both (3). self-attention is category 3 - the query projection mixes channels, the attention scores mix time - which abstracts a transformer block to **a time-mixing op followed by a channel-mixing op**. (this framing is exactly the hook [MLLA's linear-attention reform](/input/mlla-notes/) hangs its "attention is just a channel-mixer in disguise" argument on.)
 
 ## context, retrieval, and what the transformer can't do
 
 transformers use context as short-term memory recalled with near-perfect fidelity - hence [in-context learning](https://thegradient.pub/in-context-learning-in-context/): induction heads solving [indirect object identification](https://arxiv.org/pdf/2211.00593.pdf), or [in-context linear regression](https://proceedings.neurips.cc/paper_files/paper/2022/file/c529dba08a146ea8d6cf715ae8930cbe-Paper-Conference.pdf) straight from the papers' examples.
 
-and the flip side: the transformer doesn't filter its context until recall time. so anything we *suspect* is useful gets filtered **outside** the model - with classic [information retrieval](/i/information-retrieval-notes/) machinery - and stuffed into the prompt: RAG. a human with a search engine is kind of a RAG system: you still need to know what to search, but whatever comes back is as salient as short-term memory.
+and the flip side: the transformer doesn't filter its context until recall time. so anything we *suspect* is useful gets filtered **outside** the model - with classic [information retrieval](/input/information-retrieval-notes/) machinery - and stuffed into the prompt: RAG. a human with a search engine is kind of a RAG system: you still need to know what to search, but whatever comes back is as salient as short-term memory.
 
 ## breadcrumbs
 
-- [bahdanau attention](/i/bahdanau-attention-notes/) - where the score-normalize-weighted-sum core was born, four years earlier
-- [bert](/i/bert-notes/) - the same machinery with the mask flipped (bidirectional vs causal)
-- [rope](/i/RoPE-notes/) - the positional-information half this note never covered (the walkthrough above quietly assumes positions exist somewhere)
-- [mlla](/i/mlla-notes/) - the linear-attention reformulation of everything in the multi-head section
-- [information retrieval](/i/information-retrieval-notes/) - the filtering half of the RAG coda
-- [kl divergence](/i/kl-divergence-notes/) - entropy and the softmax-adjacent math the attention scores lean on
+- [bahdanau attention](/input/bahdanau-attention-notes/) - where the score-normalize-weighted-sum core was born, four years earlier
+- [bert](/input/bert-notes/) - the same machinery with the mask flipped (bidirectional vs causal)
+- [rope](/input/RoPE-notes/) - the positional-information half this note never covered (the walkthrough above quietly assumes positions exist somewhere)
+- [mlla](/input/mlla-notes/) - the linear-attention reformulation of everything in the multi-head section
+- [information retrieval](/input/information-retrieval-notes/) - the filtering half of the RAG coda
+- [kl divergence](/input/kl-divergence-notes/) - entropy and the softmax-adjacent math the attention scores lean on
 
 ## papers & sources
 
@@ -186,8 +186,8 @@ and the flip side: the transformer doesn't filter its context until recall time.
 
 ## todos
 
-- positional encodings are the conspicuous hole above - the walkthrough never writes them; fill alongside [RoPE notes](/i/RoPE-notes/) when redoing them together.
+- positional encodings are the conspicuous hole above - the walkthrough never writes them; fill alongside [RoPE notes](/input/RoPE-notes/) when redoing them together.
 - my KV-cache correction is one paragraph of assertion; write the actual walkthrough (per-token state, why it's $O(n^2)$ attention saved to $O(n)$ per new token) and link it here.
 - derive the $\sqrt{d_k}$ scale properly (the variance argument from §3.2.1) instead of the "keeps magitudes from growing wildly" hand-wave above.
 - re-read the annotated transformer end-to-end - it's been queued forever and i've only ever used it as a reference dip.
-- the flattened-transformer/MLLA linear-attention line: fold the focused-linear-attention math into [mlla notes](/i/mlla-notes/) and cross-link here, so the "attention as time+channel mixing" section has its reformulation sibling.
+- the flattened-transformer/MLLA linear-attention line: fold the focused-linear-attention math into [mlla notes](/input/mlla-notes/) and cross-link here, so the "attention as time+channel mixing" section has its reformulation sibling.

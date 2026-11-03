@@ -3,7 +3,7 @@ title: ORM & PRM Validation-Split Runs
 date: 2026-08-13
 description: validating the ORM and PRM training scripts
 tags: [study-notes, rlhf]
-permalink: /i/orm-prm-validation/
+permalink: /input/orm-prm-validation/
 ---
 
 
@@ -76,9 +76,9 @@ I'm not able to make my wandb logs public.. will fix this and upload from next t
 
 ## breadcrumbs
 
-- [reward models](/i/reward-models/) - the ORM/PRM concepts this run validates, label shapes included
-- [ppo phase 1 experiments](/i/PPO-phase1/) - the training-log side of the same rlhf arc
-- [rl notes](/i/RL-notes/) - the policy-gradient machinery behind RLHF training runs
+- [reward models](/input/reward-models/) - the ORM/PRM concepts this run validates, label shapes included
+- [ppo phase 1 experiments](/input/PPO-phase1/) - the training-log side of the same rlhf arc
+- [rl notes](/input/RL-notes/) - the policy-gradient machinery behind RLHF training runs
 
 ## todos
 

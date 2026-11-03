@@ -3,10 +3,10 @@ title: Mamba in vision, seen as linear attention (MLLA)
 date: 2024-12-20
 description: "one unified formulation: selective SSM = linear attention with six distinctions; forget gate + block design carry the win"
 tags: [ssm, linear-attention, study-notes, paper]
-permalink: /i/mlla-notes/
+permalink: /input/mlla-notes/
 ---
 
-[Demystify Mamba in Vision: A Linear Attention Perspective](https://arxiv.org/abs/2405.16605) (the MLLA paper) is the "wait, what *is* Mamba actually doing?" paper. it rewrites the selective SSM and linear attention in one unified formulation, declares Mamba a linear-attention transformer with **six distinctions**, then ablates them. verdict: the forget gate and the block design are the core contributors; the other four barely matter. this note is my walkthrough of the paper + [repo](https://github.com/LeapLabTHU/MLLA). the SSM side lives in my [Mamba notes](/i/mamba-notes/).
+[Demystify Mamba in Vision: A Linear Attention Perspective](https://arxiv.org/abs/2405.16605) (the MLLA paper) is the "wait, what *is* Mamba actually doing?" paper. it rewrites the selective SSM and linear attention in one unified formulation, declares Mamba a linear-attention transformer with **six distinctions**, then ablates them. verdict: the forget gate and the block design are the core contributors; the other four barely matter. this note is my walkthrough of the paper + [repo](https://github.com/LeapLabTHU/MLLA). the SSM side lives in my [Mamba notes](/input/mamba-notes/).
 
 ## linear attention in one move
 
@@ -45,7 +45,7 @@ the equivalence, in one line:
 3. **shortcut** - the $Dx$ term, skipping state entirely.
 4. **no attention normalization** - linear attention's denominator is dropped; there's nothing forcing the attention weights to sum to anything.
 5. **single-head** - linear attention usually runs many heads/subspaces; the SSM recurrence is one head per channel.
-6. **modified block design** - the Mamba-block shape itself ([SSM notes](/i/ssm-notes/) has it).
+6. **modified block design** - the Mamba-block shape itself ([SSM notes](/input/ssm-notes/) has it).
 
 ## the forget gate carries the baggage
 
@@ -64,7 +64,7 @@ the authors' tension point: to use $A$ on images you first flatten the image int
 
 ![rope replacement results](/images/mlla-notes/pasted-image-20241221123611.png)
 
-reading this right after [S4 notes](/i/s4-notes/) reframes it nicely: S4's whole identity was LTI (that's what Mamba removed), and here the *selection mechanism* itself turns out to be optional plumbing over "linear attention + positional bias". the SSM is becoming an implementation strategy, not an essence.
+reading this right after [S4 notes](/input/s4-notes/) reframes it nicely: S4's whole identity was LTI (that's what Mamba removed), and here the *selection mechanism* itself turns out to be optional plumbing over "linear attention + positional bias". the SSM is becoming an implementation strategy, not an essence.
 
 ## training + what MESA is (and isn't, in this note)
 
@@ -82,7 +82,7 @@ plus one extra: **MESA** - an overfitting-prevention strategy the authors apply 
 
 ![block comparison](/images/mlla-notes/pasted-image-20241221130417.png)
 
-**Mamba can be seen as a variant of linear attention transformer with specialized linear attention and a modified block design.** once you hold that, Mamba stops being exotic: it's one point in the linear-attention family tree - which also contains the [FLatten transformer](/o/flatten-transformer-notes/) with its focused linear attention. same $O(N)$ goal, different fixes for linear attention's known weaknesses (smooth attention distributions, low-rank).
+**Mamba can be seen as a variant of linear attention transformer with specialized linear attention and a modified block design.** once you hold that, Mamba stops being exotic: it's one point in the linear-attention family tree - which also contains the [FLatten transformer](/output/flatten-transformer-notes/) with its focused linear attention. same $O(N)$ goal, different fixes for linear attention's known weaknesses (smooth attention distributions, low-rank).
 
 ## papers & sources
 

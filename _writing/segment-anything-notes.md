@@ -3,7 +3,7 @@ title: Segment Anything notes
 date: 2024-12-03
 description: "SAM: task + model + data engineered together - promptable segmentation, 3 masks for ambiguity, a billion-mask data engine"
 tags: [segmentation, transformers, study-notes, paper]
-permalink: /i/segment-anything-notes/
+permalink: /input/segment-anything-notes/
 ---
 
 [Kirillov et al 2023](https://arxiv.org/abs/2304.02643): the paper that reframed segmentation from "train a model per dataset" to "train once, prompt forever". the plan hangs on three components - **task**, **model**, **data** - and three questions:
@@ -50,7 +50,7 @@ the output: SA-1B - **11 M images and 1.1 B masks** - released openly, masks of 
 
 ## takeaways
 
-the lesson i keep: task/model/data designed *together* beat any single clever architecture. the architecture is deliberately unremarkable (ViT + small decoder); the task definition (promptability) and the data engine loop are the moat. this is also where [my segmentation stack](/i/segmamba-notes/) got its "foundation-model first" habit from.
+the lesson i keep: task/model/data designed *together* beat any single clever architecture. the architecture is deliberately unremarkable (ViT + small decoder); the task definition (promptability) and the data engine loop are the moat. this is also where [my segmentation stack](/input/segmamba-notes/) got its "foundation-model first" habit from.
 
 ## papers & sources
 

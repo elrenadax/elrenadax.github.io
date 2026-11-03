@@ -366,10 +366,10 @@ Still plenty left: beat Triton for real, maybe poke **CuteDSL**, benchmark again
 
 ## breadcrumbs
 
-- [softmax part 2](/o/softmax-2/) - the next layer of spills
-- [adamw kernel exercise](/o/adamw/) and [ragged kernels on tpu](/o/pallas-ragged-kernels/) - sibling chapters of the kernel-optimization arc
-- [pr1: BERT in luminal](/i/pr1-luminal-bert/) - debugging kernels through a real integration
-- concept-level counterparts: [word2vec](/i/word2vec-notes/), [bert](/i/bert-notes/) and [KL divergence](/i/kl-divergence-notes/) - where softmax earns its keep and what it costs
+- [softmax part 2](/output/softmax-2/) - the next layer of spills
+- [adamw kernel exercise](/output/adamw/) and [ragged kernels on tpu](/output/pallas-ragged-kernels/) - sibling chapters of the kernel-optimization arc
+- [pr1: BERT in luminal](/input/pr1-luminal-bert/) - debugging kernels through a real integration
+- concept-level counterparts: [word2vec](/input/word2vec-notes/), [bert](/input/bert-notes/) and [KL divergence](/input/kl-divergence-notes/) - where softmax earns its keep and what it costs
 
 ## todos
 

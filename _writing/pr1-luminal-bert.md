@@ -3,7 +3,7 @@ title: oss pr#1 - luminal/example-bert example worklog
 date: 2026-08-07
 description: my first open-source PR, written up as documentation
 tags: [oss, bert, luminal, study-notes]
-permalink: /i/pr1-luminal-bert/
+permalink: /input/pr1-luminal-bert/
 ---
 
 # BERT example worklog
@@ -213,9 +213,9 @@ Let's hope it gets merged.
 
 ## breadcrumbs
 
-- [bert notes](/i/bert-notes/) - the model whose weights this PR wires up
-- [adamw kernel exercise](/o/adamw/) - same llm.c/kernel-study spirit, different framework
-- [softmax part 1](/o/softmax-1/) - the CUDA-arc's other chapters
+- [bert notes](/input/bert-notes/) - the model whose weights this PR wires up
+- [adamw kernel exercise](/output/adamw/) - same llm.c/kernel-study spirit, different framework
+- [softmax part 1](/output/softmax-1/) - the CUDA-arc's other chapters
 
 ## todos
 

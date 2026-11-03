@@ -3,10 +3,10 @@ title: SegMamba notes
 date: 2024-12-21
 description: "3D medical image segmentation with Mamba: tri-orientated scan + gated spatial conv + uncertainty-filtered skips"
 tags: [ssm, medical-imaging, study-notes, paper]
-permalink: /i/segmamba-notes/
+permalink: /input/segmamba-notes/
 ---
 
-[SegMamba](https://arxiv.org/abs/2401.13560) is where my [SSM cluster](/i/ssm-notes/) stops being theory: a Mamba-based whole-volume 3D medical segmentation backbone. this is the architecture family i actually work in - [UNet-style](/i/unet-notes/) encoders (UNETR's transformer variant, SwinUNETR) getting the [Mamba](/i/mamba-notes/) treatment. the paper also ships a dataset: **CRC-500**, 500 3D colorectal-cancer CT scans with expert annotations.
+[SegMamba](https://arxiv.org/abs/2401.13560) is where my [SSM cluster](/input/ssm-notes/) stops being theory: a Mamba-based whole-volume 3D medical segmentation backbone. this is the architecture family i actually work in - [UNet-style](/input/unet-notes/) encoders (UNETR's transformer variant, SwinUNETR) getting the [Mamba](/input/mamba-notes/) treatment. the paper also ships a dataset: **CRC-500**, 500 3D colorectal-cancer CT scans with expert annotations.
 
 ## the shape of it
 
@@ -36,7 +36,7 @@ the problem: a Mamba layer flattens 3D features into a 1D sequence (see [tri-ori
 
 ![gated spatial convolution](/images/segmamba-notes/pasted-image-20241226100641.png)
 
-(the gate idea will feel familiar from the [mamba block](/i/mamba-notes/): branch one computes content, branch two is the valve.)
+(the gate idea will feel familiar from the [mamba block](/input/mamba-notes/): branch one computes content, branch two is the valve.)
 
 ### toM - the scan in three directions
 
@@ -54,7 +54,7 @@ FUE sits on the skip connections: it estimates feature-level uncertainty and fil
 
 ## training
 
-pytorch 2.0.1 + monai 1.2.0, random crops of $128^3$, batch 2 per GPU, cross-entropy loss, SGD with polynomial lr schedule ($10^{-2}$ initial, $10^{-5}$ decay), 1000 epochs, augmentations: additive brightness, gamma, rotation, scaling, mirror, elastic deformation. 4×A100. per dataset: 70/10/20 train/valid/test split of the volumes. (the elastic deformation should ring a bell from the original [U-Net](/i/unet-notes/) paper - same trick, twelve years later.)
+pytorch 2.0.1 + monai 1.2.0, random crops of $128^3$, batch 2 per GPU, cross-entropy loss, SGD with polynomial lr schedule ($10^{-2}$ initial, $10^{-5}$ decay), 1000 epochs, augmentations: additive brightness, gamma, rotation, scaling, mirror, elastic deformation. 4×A100. per dataset: 70/10/20 train/valid/test split of the volumes. (the elastic deformation should ring a bell from the original [U-Net](/input/unet-notes/) paper - same trick, twelve years later.)
 
 ## ablations, in numbers
 

@@ -3,14 +3,14 @@ title: Mamba notes
 date: 2024-12-10
 description: "selective SSMs (S6): input-dependent B, C, Δ, and the hardware-aware scan that makes it trainable"
 tags: [ssm, study-notes, paper]
-permalink: /i/mamba-notes/
+permalink: /input/mamba-notes/
 ---
 
-Mamba is the point in the [SSM lineage](/i/ssm-notes/) where the model stops treating every token the same way. this note covers the selectivity idea, a minimal PyTorch implementation, and the hardware-aware algorithm that keeps it fast. the SSM/discretization basics are in [SSM notes](/i/ssm-notes/) and the initialization story in [S4 notes](/i/s4-notes/) - not re-explained here. main sources: [Mamba paper](https://arxiv.org/abs/2312.00752), The Gradient's [Mamba explained](https://thegradient.pub/mamba-explained/), James Chen's [walkthrough](https://jameschen.io/jekyll/update/2024/02/12/mamba.html), and two videos: [one](https://www.youtube.com/watch?v=8Q_tqwpTpVU), [the really detailed one, referenced by the authors](https://www.youtube.com/watch?v=N6Piou4oYx8).
+Mamba is the point in the [SSM lineage](/input/ssm-notes/) where the model stops treating every token the same way. this note covers the selectivity idea, a minimal PyTorch implementation, and the hardware-aware algorithm that keeps it fast. the SSM/discretization basics are in [SSM notes](/input/ssm-notes/) and the initialization story in [S4 notes](/input/s4-notes/) - not re-explained here. main sources: [Mamba paper](https://arxiv.org/abs/2312.00752), The Gradient's [Mamba explained](https://thegradient.pub/mamba-explained/), James Chen's [walkthrough](https://jameschen.io/jekyll/update/2024/02/12/mamba.html), and two videos: [one](https://www.youtube.com/watch?v=8Q_tqwpTpVU), [the really detailed one, referenced by the authors](https://www.youtube.com/watch?v=N6Piou4oYx8).
 
 ## from time-invariant to time-variant
 
-the SSM update from my [SSM notes](/i/ssm-notes/), using the *discretized* parameters (that note's shorthand drops the bars - below, $A(t), B(t)$ mean the discretized operators for step $t$):
+the SSM update from my [SSM notes](/input/ssm-notes/), using the *discretized* parameters (that note's shorthand drops the bars - below, $A(t), B(t)$ mean the discretized operators for step $t$):
 
 $$h_t = A h_{t-1} + B x_t \qquad y_t = C h_t + D x_t \qquad \text{(time-invariant: same } A,B,C,D \text{ every step)}$$
 
@@ -20,7 +20,7 @@ Mamba is time-variant on $B$, $C$ and the step size $\Delta$: they're *computed 
 
 ## the mamba block
 
-aside from the time-dependent $B, C, \Delta$, the Mamba block is a simplified [H3](/i/h3-notes/) block:
+aside from the time-dependent $B, C, \Delta$, the Mamba block is a simplified [H3](/input/h3-notes/) block:
 
 - H3 used two SSMs - **SSM-Shift** (fixed, non-learned $A$) and **SSM-Diag** - so only $B, C$ were learnable inputs to the kernel. Mamba replaces the Shift SSM with a plain 1D convolution.
 - H3's query/key/value triad collapses into two projections (call them $q$ and $k$; the papers don't, but the tutorial i worked from keeps the H3 naming).
@@ -126,7 +126,7 @@ class MambaSSM(torch.nn.Module):
         ...
 ```
 
-discretization here is ZOH-flavored, not bilinear like [S4](/i/s4-notes/): $\bar{A}\cdot\bar{B} = e^{\Delta A}$ and $\bar{B} = \Delta B$. note the simplification: true ZOH computes $\bar{B} = A^{-1}(e^{\Delta A} - I)B$; the Mamba authors chose $\Delta B$ because it produced similar results ([issue #19](https://github.com/state-spaces/mamba/issues/19)).
+discretization here is ZOH-flavored, not bilinear like [S4](/input/s4-notes/): $\bar{A}\cdot\bar{B} = e^{\Delta A}$ and $\bar{B} = \Delta B$. note the simplification: true ZOH computes $\bar{B} = A^{-1}(e^{\Delta A} - I)B$; the Mamba authors chose $\Delta B$ because it produced similar results ([issue #19](https://github.com/state-spaces/mamba/issues/19)).
 
 ![mamba discretization](/images/mamba-notes/pasted-image-20241213172945.png)
 
@@ -155,7 +155,7 @@ finally the recurrence itself - and this is the structural consequence of select
     return torch.stack(outputs, dim=1)
 ```
 
-the convolution view - the thing [LSSL](/i/s4-notes/), S4 and H3 all used to parallelize training - **dies here**. the kernel $\bar{K}$ assumed $A, B$ fixed across positions; now every step has its own. the next section is the fix.
+the convolution view - the thing [LSSL](/input/s4-notes/), S4 and H3 all used to parallelize training - **dies here**. the kernel $\bar{K}$ assumed $A, B$ fixed across positions; now every step has its own. the next section is the fix.
 
 ## why selective at all
 
@@ -237,7 +237,7 @@ the last piece is **recomputation**: the intermediate states (needed for the bac
 
 ## the resulting model, summed up
 
-the selective SSM = recurrent SSM via discretization + HiPPO init on $A$ for long range ([S4](/i/s4-notes/) heritage) + selective scan for compression + hardware-aware algorithm for speed.
+the selective SSM = recurrent SSM via discretization + HiPPO init on $A$ for long range ([S4](/input/s4-notes/) heritage) + selective scan for compression + hardware-aware algorithm for speed.
 
 ![architecture](/images/mamba-notes/pasted-image-20241216205607.png)
 
@@ -249,7 +249,7 @@ the selective SSM = recurrent SSM via discretization + HiPPO init on $A$ for lon
 - Mamba-2 / SSD (state duality - read next): <https://tridao.me/blog/2024/mamba2-part1-model>
 - reference impl: <https://github.com/state-spaces/mamba>, HF: [modeling_mamba.py](https://github.com/huggingface/transformers/blob/main/src/transformers/models/mamba/modeling_mamba.py)
 - selective copy / induction-head tasks paper: <https://arxiv.org/abs/2310.15449>
-- my [SegMamba notes](/i/segmamba-notes/) - first place SSMs hit my actual domain (3D medical segmentation)
+- my [SegMamba notes](/input/segmamba-notes/) - first place SSMs hit my actual domain (3D medical segmentation)
 
 ## todos
 

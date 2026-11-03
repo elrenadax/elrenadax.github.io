@@ -3,7 +3,7 @@ title: PPO - phase 1
 date: 2026-09-10
 description: "PPO on CartPole: what I tried and what broke"
 tags: [study-notes, rlhf]
-permalink: /i/PPO-phase1/
+permalink: /input/PPO-phase1/
 ---
 
 ## exp1: VPG / no-clip baseline on CartPole
@@ -166,9 +166,9 @@ What we see (reproduce with `uv run python metrics.py uwq3xkru 43z896f2 o7b9o09h
 
 ## breadcrumbs
 
-- [rl-fundamentals](/i/rl-fundamentals/) - the advantage/GAE theory this experiment series implements
-- [rl notes](/i/RL-notes/) - the policy-gradient half; the clip objective originates there
-- [orm/prm validation runs](/i/orm-prm-validation/) - the reward-model side of the same arc
+- [rl-fundamentals](/input/rl-fundamentals/) - the advantage/GAE theory this experiment series implements
+- [rl notes](/input/RL-notes/) - the policy-gradient half; the clip objective originates there
+- [orm/prm validation runs](/input/orm-prm-validation/) - the reward-model side of the same arc
 
 ## todos
 

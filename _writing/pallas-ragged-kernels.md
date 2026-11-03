@@ -291,9 +291,9 @@ All code can be found at [github](https://github.com/elrenadax/jax-mini-t9r)
 
 ## breadcrumbs
 
-- [adamw kernel exercise](/o/adamw/) - GPU-side counterpart of the same optimization arc
-- [softmax part 1](/o/softmax-1/) and [part 2](/o/softmax-2/) - kernel-fusion craft on the attention side
-- [pr1: BERT in luminal](/i/pr1-luminal-bert/) - kernel/diagnostic debugging on a different stack
+- [adamw kernel exercise](/output/adamw/) - GPU-side counterpart of the same optimization arc
+- [softmax part 1](/output/softmax-1/) and [part 2](/output/softmax-2/) - kernel-fusion craft on the attention side
+- [pr1: BERT in luminal](/input/pr1-luminal-bert/) - kernel/diagnostic debugging on a different stack
 
 ## todos
 

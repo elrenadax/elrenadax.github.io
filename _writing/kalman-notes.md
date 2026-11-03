@@ -3,7 +3,7 @@ title: Kalman filter notes
 date: 2024-12-11
 description: "bayes rule + markov states = the linear-Gaussian SSM behind the filter (predict + update)"
 tags: [ssm, bayesian-filter, study-notes]
-permalink: /i/kalman-notes/
+permalink: /input/kalman-notes/
 ---
 
 start with the problem: estimate the state of a random process from measurements that are noisy. the measurement is the *effect*, the state is the **cause**:
@@ -27,7 +27,7 @@ the running theme: **start with a belief about the state, update the belief as m
 
 ## making it a sequence
 
-now connect it to my [SSM notes](/i/ssm-notes/): assume the states form a first-order **markov chain**, and the measurements are independent of each other given the states (if you can model state-to-state transitions, modeling measurement-to-measurement transitions is redundant). throw in a picture:
+now connect it to my [SSM notes](/input/ssm-notes/): assume the states form a first-order **markov chain**, and the measurements are independent of each other given the states (if you can model state-to-state transitions, modeling measurement-to-measurement transitions is redundant). throw in a picture:
 
 ![markov chain over states](/images/kalman-notes/pasted-image-20241211172134.png)
 
@@ -63,7 +63,7 @@ $$p(s_k \mid m_{k-1}) = \int p(s_k \mid s_{k-1})\, p(s_{k-1} \mid m_{k-1})\, ds_
 
 $$p(s_k \mid m_k) = \frac{p(m_k \mid s_k)\, p(s_k \mid m_{k-1})}{\mathcal{N}_k}$$
 
-and that's the entire skeleton of every bayesian filter: predict, update, repeat. the [linear-Gaussian SSM here](/i/ssm-notes/) is literally the ancestor of the whole `h' = Ah + Bx` lineage in my ssm notes.
+and that's the entire skeleton of every bayesian filter: predict, update, repeat. the [linear-Gaussian SSM here](/input/ssm-notes/) is literally the ancestor of the whole `h' = Ah + Bx` lineage in my ssm notes.
 
 ## papers & sources
 
@@ -75,4 +75,4 @@ and that's the entire skeleton of every bayesian filter: predict, update, repeat
 
 - the part the note is *named after* is still missing: the kalman gain $K$, the covariance predict/update pair, and explicit $Q$, $R$ noise covariances. everything above is the wrapper; the filter itself is the next sitting.
 - chapman-kolmogorov: get the intuition, not just the integral trick (it's "total probability along the chain" - write it up when done).
-- connect $H$ here to the observation matrix in my [SSM notes](/i/ssm-notes/) $C$, and note where the neural versions diverge (no noise covariances, learned $A$).
+- connect $H$ here to the observation matrix in my [SSM notes](/input/ssm-notes/) $C$, and note where the neural versions diverge (no noise covariances, learned $A$).

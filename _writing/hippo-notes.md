@@ -3,10 +3,10 @@ title: HiPPO notes
 date: 2024-12-08
 description: "HiPPO: the matrix A IS the memory - projecting the whole input history onto polynomial coefficients"
 tags: [ssm, orthogonal-polynomials, study-notes]
-permalink: /i/hippo-notes/
+permalink: /input/hippo-notes/
 ---
 
-in my [SSM notes](/i/ssm-notes/) the whole thing came down to one line: the structure of $A$ decides which parts of the previous state survive. HiPPO ("**Hi**gh-order **P**olynomial **P**rojection **O**perators", [paper](https://arxiv.org/abs/2008.07669), Gu, Dao, Ermon, Rudra, Ré) is the answer to "so what should $A$ *be*?" - and it's not a trick, it's a whole framework: project the *entire* input history onto a space of polynomial coefficients, online, with closed-form update matrices. this walkthrough follows the [Hazy Research blog](https://hazyresearch.stanford.edu/blog/2020-12-05-hippo), the paper itself, Yao Fu's [post](https://yaofu.notion.site/Why-S4-is-Good-at-Long-Sequence-Remembering-a-Sequence-with-Online-Function-Approximation-836fc54a49aa413b84997a265132f13f), and Albert Gu's [talk](https://www.youtube.com/watch?v=luCBXCErkCs).
+in my [SSM notes](/input/ssm-notes/) the whole thing came down to one line: the structure of $A$ decides which parts of the previous state survive. HiPPO ("**Hi**gh-order **P**olynomial **P**rojection **O**perators", [paper](https://arxiv.org/abs/2008.07669), Gu, Dao, Ermon, Rudra, Ré) is the answer to "so what should $A$ *be*?" - and it's not a trick, it's a whole framework: project the *entire* input history onto a space of polynomial coefficients, online, with closed-form update matrices. this walkthrough follows the [Hazy Research blog](https://hazyresearch.stanford.edu/blog/2020-12-05-hippo), the paper itself, Yao Fu's [post](https://yaofu.notion.site/Why-S4-is-Good-at-Long-Sequence-Remembering-a-Sequence-with-Online-Function-Approximation-836fc54a49aa413b84997a265132f13f), and Albert Gu's [talk](https://www.youtube.com/watch?v=luCBXCErkCs).
 
 ## why A is the whole ballgame
 
@@ -50,7 +50,7 @@ hippo_matrix(state_size=5)
 #         [-3.0000, -5.1962, -6.7082, -7.9373, -5.0000]])
 ```
 
-lower-triangular, negative, diagonal exactly $-n$: each coefficient slides toward zero at its own rate. (keep this cell in your head - my [S4 notes](/i/s4-notes/) diagonalize *this* matrix.)
+lower-triangular, negative, diagonal exactly $-n$: each coefficient slides toward zero at its own rate. (keep this cell in your head - my [S4 notes](/input/s4-notes/) diagonalize *this* matrix.)
 
 ## the actual problem
 
@@ -120,7 +120,7 @@ differentiate that for every $i$, push through (a large amount of) math, and the
 
 $$\frac{d}{dt}c(t) = -\frac{1}{t}Ac(t) + \frac{1}{t}Bf(t)$$
 
-with $c(t) = [c_1(t), \dots, c_N(t)]$. and here the magic matrix $A$ emerges (it's HiPPO's matrix first - the S4 paper adopts it later, which is why my [S4 notes](/i/s4-notes/) start from here):
+with $c(t) = [c_1(t), \dots, c_N(t)]$. and here the magic matrix $A$ emerges (it's HiPPO's matrix first - the S4 paper adopts it later, which is why my [S4 notes](/input/s4-notes/) start from here):
 
 $$A_{nk} = \begin{cases} (2n+1)^{1/2} (2k+1)^{1/2} & \text{if } n > k \\ n+1 & \text{if } n = k \\ 0 & \text{if } n < k \end{cases}$$
 
@@ -156,10 +156,10 @@ and these $c_k$ are *exactly* the coefficients of the online approximation at ti
 
 $$\hat{f}_{<k\Delta t}(x) = \sum_{i=1}^N c_{k,i}\, e_{k\Delta t, i}(x)$$
 
-so the state of this RNN is never just "some numbers" - it's a live polynomial approximation of the entire past, and the recurrence is the compression algorithm. this is the thing S4 runs with (structured + diagonalized), and Mamba mutates (selective - my [Mamba notes](/i/mamba-notes/). linear recurrence, closed form, all of history. that's the whole trick.
+so the state of this RNN is never just "some numbers" - it's a live polynomial approximation of the entire past, and the recurrence is the compression algorithm. this is the thing S4 runs with (structured + diagonalized), and Mamba mutates (selective - my [Mamba notes](/input/mamba-notes/). linear recurrence, closed form, all of history. that's the whole trick.
 
 ## todos
 
 - actually walk appendix D.3 - i still *trust* the ODE more than *derive* it. needs the ODE/Legendre-recurrence groundwork first.
-- the measure zoo: the paper has LegS (scaled uniform) but also LagT/LegT sliding-window flavors. what does each buy, and which one does S4/Mamba actually inherit? (S4's init is LegS-derived; the LRU line says init barely matters - check against my [S4 notes](/i/s4-notes/).)
+- the measure zoo: the paper has LegS (scaled uniform) but also LagT/LegT sliding-window flavors. what does each buy, and which one does S4/Mamba actually inherit? (S4's init is LegS-derived; the LRU line says init barely matters - check against my [S4 notes](/input/s4-notes/).)
 - "measure as a learned dynamic parameter" instead of a fixed choice - nobody in the papers does this; worth a skim of follow-up work.

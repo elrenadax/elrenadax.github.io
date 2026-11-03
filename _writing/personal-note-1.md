@@ -25,8 +25,8 @@ Truth must be data and diagnostics from now. It's not been too long for me that 
 
 ## breadcrumbs
 
-- [ragged kernels on tpu](/o/pallas-ragged-kernels/) - the scaling-law work with Vlad that this note reflects on
-- [rl-fundamentals](/i/rl-fundamentals/) and [rl notes](/i/RL-notes/) - the one-focus curriculum this note commits to
+- [ragged kernels on tpu](/output/pallas-ragged-kernels/) - the scaling-law work with Vlad that this note reflects on
+- [rl-fundamentals](/input/rl-fundamentals/) and [rl notes](/input/RL-notes/) - the one-focus curriculum this note commits to
 
 ## todos
 

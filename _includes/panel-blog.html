@@ -1,0 +1,11 @@
+  <div id="tab-blog" class="tab-panel">
+      {% assign posts = site.writing | where_exp: "p", "p.tags contains 'blog'" | sort: "date" | reverse %}
+  <ul class="w-list">
+        {% for post in posts %}
+        <li class="w-item" data-s="{{ post.title | escape }} {{ post.tags | join: ' ' | escape }}">
+          <time class="w-date" datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%b %d, %Y" }}</time>
+          <a class="w-link" href="{{ post.url | relative_url }}">{{ post.title }}</a>
+        </li>
+        {% endfor %}
+      </ul>
+    </div>

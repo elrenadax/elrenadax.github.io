@@ -3,7 +3,7 @@ title: BERT notes
 date: 2024-11-29
 description: "masked LM + next sentence prediction on a bidirectional transformer encoder: why masking beats left-to-right"
 tags: [nlp, study-notes, paper]
-permalink: /i/bert-notes/
+permalink: /input/bert-notes/
 ---
 
 [Devlin et al](https://arxiv.org/abs/1810.04805): pretraining that fuses context from *both directions at the same time*. the argument it opens with (still worth internalizing): standard language models are unidirectional, which restricts what architectures you can even choose during pretraining. GPT's left-to-right attention is sub-optimal for sentence-level tasks and actively harmful for token-level tasks like question answering, where you crucially need context from both sides.
@@ -73,9 +73,9 @@ dividing by the product of the parts' own frequencies prioritizes merges whose p
 
 ## breadcrumbs
 
-- lineage: [word2vec](/i/word2vec-notes/) gave static per-word embeddings; ELMo made them shallowly contextual; BERT made them deeply contextual. from word2vec to BERT is "one vector per word" → "one vector per occurrence".
-- the attention mechanism itself is the same as GPT's - just bidirectional rather than causal. where did attention start? my [Bahdanau attention notes](/i/bahdanau-attention-notes/) predate both by four years.
-- i also have a hands-on BERT worklog: [pr1-luminal-bert](/i/pr1-luminal-bert/) (open-source example work).
+- lineage: [word2vec](/input/word2vec-notes/) gave static per-word embeddings; ELMo made them shallowly contextual; BERT made them deeply contextual. from word2vec to BERT is "one vector per word" → "one vector per occurrence".
+- the attention mechanism itself is the same as GPT's - just bidirectional rather than causal. where did attention start? my [Bahdanau attention notes](/input/bahdanau-attention-notes/) predate both by four years.
+- i also have a hands-on BERT worklog: [pr1-luminal-bert](/input/pr1-luminal-bert/) (open-source example work).
 - code: [build BERT from scratch walkthrough](https://medium.com/data-and-beyond/complete-guide-to-building-bert-model-from-sratch-3e6562228891), [pytorch_bert](https://github.com/coaxsoft/pytorch_bert) and [BERT-pytorch](https://github.com/codertimo/BERT-pytorch)
 
 ## papers & sources
@@ -87,5 +87,5 @@ dividing by the product of the parts' own frequencies prioritizes merges whose p
 
 ## todos
 
-- the pretraining loss itself (masked cross-entropy) and Q/K/V self-attention mechanics: the attention mechanics now live in [transformers notes](/i/transformers-notes/); the BERT-specific §3.1 fill is what's still pending here.
+- the pretraining loss itself (masked cross-entropy) and Q/K/V self-attention mechanics: the attention mechanics now live in [transformers notes](/input/transformers-notes/); the BERT-specific §3.1 fill is what's still pending here.
 - sentence-transformer pooling strategies (the UKPLab repo link was sitting in Sources unused) - what exactly does mean-pooling do to `[CLS]`-trained representations?

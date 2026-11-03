@@ -3,7 +3,7 @@ title: word2vec notes
 date: 2025-03-22
 description: "skip-gram from first principles: the objective, the lookup-table trick, and how negative sampling + subsampling make it cheap"
 tags: [nlp, study-notes, paper]
-permalink: /i/word2vec-notes/
+permalink: /input/word2vec-notes/
 ---
 
 the idea in one line: give every word a dense vector, chosen so that vectors of words appearing in *similar contexts* end up similar (the distributional hypothesis wearing math). mikolov et al's [papers](https://arxiv.org/abs/1301.3781) are the source; my walkthrough leans on [CS224n notes](https://web.stanford.edu/class/cs224n/), [Christophe Garon's negative-sampling explainer](https://christophegaron.com/articles/research/demystifying-mikolov-et-al-s-negative-sampling-word-embedding-method-understanding-word2vec/), and [Chris McCormick's tutorials](http://mccormickml.com/2016/04/19/word2vec-tutorial-the-skip-gram-model/).
@@ -31,14 +31,14 @@ lower loss = better predictions everywhere on average.
 
 ## two vectors per word
 
-how do we actually compute $P(w_{t+j} \mid w_t)$? every word gets **two** vectors: $v_w$ used when the word is the center, $u_w$ used when it's context. then a [softmax](/o/softmax-1/) over dot products:
+how do we actually compute $P(w_{t+j} \mid w_t)$? every word gets **two** vectors: $v_w$ used when the word is the center, $u_w$ used when it's context. then a [softmax](/output/softmax-1/) over dot products:
 
 $$P(o \mid c) = \frac{\exp(u_o^\top v_c)}{\sum_{w \in V} \exp(u_w^\top v_c)}$$
 
 (the numerator is the *observed* context word's vector dotted with the center - some write-ups leave it as `U^T V_c` with the observed word missing.)
 
 - the dot product measures similarity: larger → more similar → higher probability of $o$ being near $c$.
-- "soft"+"max": see [softmax notes](/o/softmax-1/).
+- "soft"+"max": see [softmax notes](/output/softmax-1/).
 
 this is the whole model. everything else is making $\sum_{w \in V}$ survivable.
 

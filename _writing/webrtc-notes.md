@@ -3,7 +3,7 @@ title: webrtc notes
 date: 2025-03-07
 description: "signaling, ICE/STUN/TURN, DTLS/SRTP, RTP/SCTP: the four steps that make peer-to-peer calling work"
 tags: [networking, webrtc, study-notes]
-permalink: /i/webrtc-notes/
+permalink: /input/webrtc-notes/
 ---
 
 WebRTC is the set of rules two agents follow to negotiate **bi-directional, secure, real-time** communication. four sequential steps, each one gates the next:

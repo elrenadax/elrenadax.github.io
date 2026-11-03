@@ -9,16 +9,20 @@
         <span class="site-name">{{ site.title }}</span>
       </a>
 
+<nav class="site-nav" aria-label="Main">
+        <a href="{{ '/input/' | relative_url }}" aria-label="input" title="input"{% if page.url contains '/input/' %} aria-current="page"{% endif %}>I</a>
+        <span class="nav-sep" aria-hidden="true">/</span>
+        <a href="{{ '/media/' | relative_url }}" aria-label="media" title="media"{% if page.url contains '/media/' %} aria-current="page"{% endif %}>M</a>
+        <span class="nav-sep" aria-hidden="true">/</span>
+        <a href="{{ '/output/' | relative_url }}" aria-label="output" title="output"{% if page.url contains '/output/' %} aria-current="page"{% endif %}>O</a>
+      </nav>
+
       <button id="menu-toggle" class="menu-toggle" type="button" aria-label="Menu" aria-expanded="false" aria-controls="site-menu">
         <span aria-hidden="true">&#9776;</span>
       </button>
 
       <div id="site-menu" class="site-menu">
-        <nav class="site-nav" aria-label="Main">
-          <a href="{{ '/i/' | relative_url }}" aria-label="input" title="input"{% if page.url contains '/i/' %} aria-current="page"{% endif %}>I</a>
-          <span class="nav-sep" aria-hidden="true">/</span>
-          <a href="{{ '/o/' | relative_url }}" aria-label="output" title="output"{% if page.url contains '/o/' %} aria-current="page"{% endif %}>O</a>
-        </nav>
+
 
         <div class="site-actions">
           <button id="theme-toggle" class="theme-toggle" type="button" aria-label="Switch to dark theme" title="Switch theme">
@@ -34,6 +38,12 @@
           {% if site.kaggle_username %}
           <a class="icon-link icon-invert" href="https://www.kaggle.com/{{ site.kaggle_username }}" aria-label="Kaggle" target="_blank" rel="noopener">
             <img src="{{ '/images/icons/kaggle.webp' | relative_url }}" alt="" width="20" height="20" loading="lazy" decoding="async">
+          </a>
+          {% endif %}
+
+        {% if site.kaggle_username %}
+          <a class="icon-link icon-invert" href="https://www.youtube.com/@{{ site.youtube_username }}" aria-label="YouTube" target="_blank" rel="noopener">
+            <img src="{{ '/images/icons/youtube.webp' | relative_url }}" alt="" width="20" height="20" loading="lazy" decoding="async">
           </a>
           {% endif %}
         </div>
